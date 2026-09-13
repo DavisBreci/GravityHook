@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://du7hx8e8yvbwb"]
+
+[ext_resource type="Script" uid="uid://cdxdq2o6l63ej" path="res://level.gd" id="1_oi3di"]
+[ext_resource type="PackedScene" uid="uid://5bqw8yvckq7a" path="res://player.tscn" id="1_u52ul"]
+[ext_resource type="Texture2D" uid="uid://d5glc8b5aad5" path="res://icon.svg" id="1_vonw3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u52ul"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0b4ue"]
+load_path = "res://.godot/imported/Up-Arrow-PNG-Transparent-Image.png-261f6299e0fb6acc415fc7d676370040.ctex"
+
+[node name="Level" type="Node2D" unique_id=1041908437]
+script = ExtResource("1_oi3di")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1429536642]
+physics_material_override = SubResource("PhysicsMaterial_u52ul")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1027379878]
+position = Vector2(0, 624)
+scale = Vector2(1.0078125, 1)
+polygon = PackedVector2Array(0, 0, 1143.0698, 0, 1143.0698, 24, 384, 24, 0, 24, 0, 24)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1105550298]
+polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 0, 1152, 0, 1152, 24, 0, 24, 0, 24)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1544402630]
+position = Vector2(0, 24)
+polygon = PackedVector2Array(0, 0, 0, 600, 0, 600, 24, 600, 24, 600, 24, 0, 24, 0)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1447159336]
+position = Vector2(1128, 24)
+polygon = PackedVector2Array(0, 0, 0, 0, 24, 0, 24, 600, 24, 600, 0, 600, 0, 600, 0, 600)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=535666344]
+polygon = PackedVector2Array(320, 624, 320, 624, 320, 256, 448, 256, 448, 624, 448, 624, 448, 624)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D5" unique_id=1234261018]
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 448.0
+offset_bottom = 624.0
+texture = ExtResource("1_vonw3")
+
+[node name="Player" parent="." unique_id=60360155 instance=ExtResource("1_u52ul")]
+position = Vector2(584, 312)
+
+[node name="ArrowTexture" type="TextureRect" parent="." unique_id=392525411]
+offset_left = -191.99998
+offset_top = -191.99998
+offset_right = 320.0
+offset_bottom = 320.0
+scale = Vector2(0.1, 0.1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("CompressedTexture2D_0b4ue")
