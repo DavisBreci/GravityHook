@@ -1,2 +1,2 @@
 # GravityHook
-name subject to change
+Gravity Hook is a 2D puzzle platformer with the primary mechanic of reversing gravity. Take on the role of [insert avatar name] to conquer a series of puzzle rooms equipped with his gravity boots and grappling hook!
