@@ -4,7 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://d5glc8b5aad5" path="res://icon.svg" id="2_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_velac"]
-size = Vector2(115, 111)
+size = Vector2(111, 109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpbmb"]
+size = Vector2(120, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mqu5"]
+size = Vector2(120, 120)
 
 [node name="Player" type="CharacterBody2D" unique_id=1014525259]
 script = ExtResource("1_onrkg")
@@ -13,5 +19,15 @@ script = ExtResource("1_onrkg")
 texture = ExtResource("2_i3pqv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1510296493]
-position = Vector2(0.5, 0.5)
+rotation = 1.5707964
 shape = SubResource("RectangleShape2D_velac")
+
+[node name="HorizontalShapeCast2D" type="ShapeCast2D" parent="." unique_id=1980246078]
+shape = SubResource("RectangleShape2D_dpbmb")
+target_position = Vector2(0, 0)
+max_results = 4
+
+[node name="VerticalShapeCast2D" type="ShapeCast2D" parent="." unique_id=123486720]
+shape = SubResource("RectangleShape2D_4mqu5")
+target_position = Vector2(0, 0)
+max_results = 4

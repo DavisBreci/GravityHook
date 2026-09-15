@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d5glc8b5aad5" path="res://icon.svg" id="1_vonw3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u52ul"]
+friction = 0.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0b4ue"]
 load_path = "res://.godot/imported/Up-Arrow-PNG-Transparent-Image.png-261f6299e0fb6acc415fc7d676370040.ctex"
@@ -25,11 +26,11 @@ polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 0, 1152, 0, 1152, 24, 0, 24, 0
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1544402630]
 position = Vector2(0, 24)
-polygon = PackedVector2Array(0, 0, 0, 600, 0, 600, 24, 600, 24, 600, 24, 0, 24, 0)
+polygon = PackedVector2Array(0, 624, 24, 624, 24, -24, 0, -24)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1447159336]
 position = Vector2(1128, 24)
-polygon = PackedVector2Array(0, 0, 0, 0, 24, 0, 24, 600, 24, 600, 0, 600, 0, 600, 0, 600)
+polygon = PackedVector2Array(0, -24, 24, -24, 24, 624, 0, 624)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=535666344]
 polygon = PackedVector2Array(320, 624, 320, 624, 320, 256, 448, 256, 448, 624, 448, 624, 448, 624)
@@ -42,7 +43,7 @@ offset_bottom = 624.0
 texture = ExtResource("1_vonw3")
 
 [node name="Player" parent="." unique_id=60360155 instance=ExtResource("1_u52ul")]
-position = Vector2(584, 312)
+position = Vector2(180, 343)
 
 [node name="ArrowTexture" type="TextureRect" parent="." unique_id=392525411]
 offset_left = -191.99998
