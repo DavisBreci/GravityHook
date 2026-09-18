@@ -62,11 +62,22 @@ func _physics_process(delta: float) -> void:
 	elif gravity_direction.y != 0:
 		velocity.y = 0
 	if not is_airborne:
+		$AnimatedSprite2D.play()
 		fall_speed = 200
 		if button_input[buttons.JUMP]:
+			$AnimatedSprite2D.stop()
 			is_airborne = true
 			set_gravity((-1)*gravity_direction)
 			velocity += gravity_direction * fall_speed
+		elif velocity.x != 0:
+			$AnimatedSprite2D.animation = "walk"
+			$AnimatedSprite2D.flip_h = velocity.x < 0 if gravity_direction == Vector2.DOWN else velocity.x > 0
+		elif velocity.y != 0:
+			pass
+			$AnimatedSprite2D.animation = "walk"
+			$AnimatedSprite2D.flip_h = velocity.y < 0 if gravity_direction == Vector2.LEFT else velocity.y > 0
+		else:
+			$AnimatedSprite2D.animation = "idle"
 	if is_airborne:
 		fall_speed += GRAVITY
 		velocity += gravity_direction * fall_speed

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://du7hx8e8yvbwb"]
+
+[ext_resource type="Script" uid="uid://cdxdq2o6l63ej" path="res://level.gd" id="1_oi3di"]
+[ext_resource type="PackedScene" uid="uid://5bqw8yvckq7a" path="res://player.tscn" id="1_u52ul"]
+[ext_resource type="Texture2D" uid="uid://dy0e8ng40d4w4" path="res://assets/Solid_black.png" id="2_oi3di"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u52ul"]
+friction = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0b4ue"]
+load_path = "res://.godot/imported/Up-Arrow-PNG-Transparent-Image.png-261f6299e0fb6acc415fc7d676370040.ctex"
+
+[node name="Level" type="Node2D" unique_id=1041908437]
+script = ExtResource("1_oi3di")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1429536642]
+physics_material_override = SubResource("PhysicsMaterial_u52ul")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1027379878]
+position = Vector2(0, 624)
+scale = Vector2(1.0078125, 1)
+polygon = PackedVector2Array(0, 0, 1143.0698, 0, 1143.0698, 24, 384, 24, 0, 24, 0, 24)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D" unique_id=362260973]
+offset_right = 1143.0698
+offset_bottom = 24.0
+texture = ExtResource("2_oi3di")
+expand_mode = 1
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1105550298]
+polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 0, 1152, 0, 1152, 24, 581, 24, 0, 24, 0, 24)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D2" unique_id=1702485465]
+offset_right = 1152.0
+offset_bottom = 24.0
+texture = ExtResource("2_oi3di")
+expand_mode = 1
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1544402630]
+position = Vector2(0, 24)
+polygon = PackedVector2Array(0, 624, 24, 624, 24, -24, 0, -24)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D3" unique_id=548923763]
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 624.0
+texture = ExtResource("2_oi3di")
+expand_mode = 1
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1447159336]
+position = Vector2(1128, 24)
+polygon = PackedVector2Array(0, -24, 24, -24, 24, 624, 0, 624)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D4" unique_id=1345372435]
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 624.0
+texture = ExtResource("2_oi3di")
+expand_mode = 1
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=535666344]
+position = Vector2(300.19995, -1.5258789e-05)
+scale = Vector2(0.38281262, 1.0000001)
+polygon = PackedVector2Array(320, 624, 320, 624, 320, 256, 448, 256, 448, 624, 448, 624, 448, 624)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D5" unique_id=1234261018]
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 448.0
+offset_bottom = 624.0
+texture = ExtResource("2_oi3di")
+expand_mode = 1
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=404741432]
+polygon = PackedVector2Array(472, 256, 472, 256, 704, 256, 704, 256, 704, 320, 704, 320, 472, 320, 472, 320)
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D6" unique_id=403916168]
+offset_left = 472.0
+offset_top = 256.0
+offset_right = 704.0
+offset_bottom = 320.0
+texture = ExtResource("2_oi3di")
+expand_mode = 1
+
+[node name="Player" parent="." unique_id=60360155 instance=ExtResource("1_u52ul")]
+position = Vector2(180, 343)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1343825248]
+
+[node name="ArrowTexture" type="TextureRect" parent="Sprite2D" unique_id=392525411]
+visible = false
+offset_left = -1968.0001
+offset_top = -2248.0002
+offset_right = 3120.005
+offset_bottom = 2879.994
+scale = Vector2(0.1, 0.1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("CompressedTexture2D_0b4ue")
+
+[connection signal="gravity_change" from="Player" to="." method="_on_player_gravity_change"]
