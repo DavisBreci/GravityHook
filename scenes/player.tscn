@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://5bqw8yvckq7a"]
+
+[ext_resource type="Script" uid="uid://cacjoniyco2hq" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://cg0eab0ljwlmr" path="res://assets/pixil-frame-0.png" id="3_qhqgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_velac"]
+size = Vector2(115, 115)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_velac"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qhqgy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=1014525259]
+script = ExtResource("1_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1510296493]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_velac")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1377831244]
+position = Vector2(-2.3841858e-07, -23.000002)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_velac")

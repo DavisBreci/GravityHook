@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://du7hx8e8yvbwb"]
 
-[ext_resource type="Script" uid="uid://cdxdq2o6l63ej" path="res://level.gd" id="1_oi3di"]
-[ext_resource type="PackedScene" uid="uid://5bqw8yvckq7a" path="res://player.tscn" id="1_u52ul"]
-[ext_resource type="Texture2D" uid="uid://dy0e8ng40d4w4" path="res://assets/Solid_black.png" id="2_oi3di"]
+[ext_resource type="Script" uid="uid://cdxdq2o6l63ej" path="res://scripts/level.gd" id="1_w8frs"]
+[ext_resource type="Texture2D" uid="uid://dy0e8ng40d4w4" path="res://assets/Solid_black.png" id="2_mx8sn"]
+[ext_resource type="PackedScene" uid="uid://5bqw8yvckq7a" path="res://scenes/player.tscn" id="3_w8frs"]
+[ext_resource type="PackedScene" uid="uid://c1dgui8tinrh7" path="res://grapple_node.tscn" id="4_mx8sn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u52ul"]
 friction = 0.0
@@ -11,7 +12,7 @@ friction = 0.0
 load_path = "res://.godot/imported/Up-Arrow-PNG-Transparent-Image.png-261f6299e0fb6acc415fc7d676370040.ctex"
 
 [node name="Level" type="Node2D" unique_id=1041908437]
-script = ExtResource("1_oi3di")
+script = ExtResource("1_w8frs")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1429536642]
 physics_material_override = SubResource("PhysicsMaterial_u52ul")
@@ -24,7 +25,7 @@ polygon = PackedVector2Array(0, 0, 1143.0698, 0, 1143.0698, 24, 384, 24, 0, 24, 
 [node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D" unique_id=362260973]
 offset_right = 1143.0698
 offset_bottom = 24.0
-texture = ExtResource("2_oi3di")
+texture = ExtResource("2_mx8sn")
 expand_mode = 1
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1105550298]
@@ -33,7 +34,7 @@ polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 0, 1152, 0, 1152, 24, 581, 24,
 [node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D2" unique_id=1702485465]
 offset_right = 1152.0
 offset_bottom = 24.0
-texture = ExtResource("2_oi3di")
+texture = ExtResource("2_mx8sn")
 expand_mode = 1
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1544402630]
@@ -44,7 +45,7 @@ polygon = PackedVector2Array(0, 624, 24, 624, 24, -24, 0, -24)
 offset_top = -24.0
 offset_right = 24.0
 offset_bottom = 624.0
-texture = ExtResource("2_oi3di")
+texture = ExtResource("2_mx8sn")
 expand_mode = 1
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1447159336]
@@ -55,35 +56,39 @@ polygon = PackedVector2Array(0, -24, 24, -24, 24, 624, 0, 624)
 offset_top = -24.0
 offset_right = 24.0
 offset_bottom = 624.0
-texture = ExtResource("2_oi3di")
+texture = ExtResource("2_mx8sn")
 expand_mode = 1
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=535666344]
-position = Vector2(300.19995, -1.5258789e-05)
+position = Vector2(1048, -215.99998)
 scale = Vector2(0.38281262, 1.0000001)
-polygon = PackedVector2Array(320, 624, 320, 624, 320, 256, 448, 256, 448, 624, 448, 624, 448, 624)
+polygon = PackedVector2Array(323.39594, 623.9999, 323.39594, 303.99994, 448.78363, 303.99994, 448, 624, 448, 624, 448, 624)
+metadata/_edit_group_ = true
 
 [node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D5" unique_id=1234261018]
-offset_left = 320.0
-offset_top = 256.0
-offset_right = 448.0
+offset_left = 323.396
+offset_top = 304.0
+offset_right = 448.7837
 offset_bottom = 624.0
-texture = ExtResource("2_oi3di")
+texture = ExtResource("2_mx8sn")
 expand_mode = 1
 
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=404741432]
-polygon = PackedVector2Array(472, 256, 472, 256, 704, 256, 704, 256, 704, 320, 704, 320, 472, 320, 472, 320)
+position = Vector2(120, -320)
+polygon = PackedVector2Array(472, 256, 472, 256, 704, 256, 704, 256, 704, 304, 472, 304)
+metadata/_edit_group_ = true
 
 [node name="TextureRect" type="TextureRect" parent="StaticBody2D/CollisionPolygon2D6" unique_id=403916168]
 offset_left = 472.0
 offset_top = 256.0
 offset_right = 704.0
-offset_bottom = 320.0
-texture = ExtResource("2_oi3di")
+offset_bottom = 304.0
+texture = ExtResource("2_mx8sn")
 expand_mode = 1
+stretch_mode = 1
 
-[node name="Player" parent="." unique_id=60360155 instance=ExtResource("1_u52ul")]
-position = Vector2(180, 343)
+[node name="Player" parent="." unique_id=60360155 instance=ExtResource("3_w8frs")]
+position = Vector2(120, 504)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1343825248]
 
@@ -97,4 +102,11 @@ scale = Vector2(0.1, 0.1)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("CompressedTexture2D_0b4ue")
 
+[node name="GrappleNode" parent="." unique_id=1462560420 groups=["GrappleNodes"] instance=ExtResource("4_mx8sn")]
+position = Vector2(800, 288)
+
+[node name="GrappleNode2" parent="." unique_id=1722110990 groups=["GrappleNodes"] instance=ExtResource("4_mx8sn")]
+position = Vector2(288, 288)
+
 [connection signal="gravity_change" from="Player" to="." method="_on_player_gravity_change"]
+[connection signal="can_hook" from="GrappleNode" to="Player" method="_on_grapple_node_can_hook"]

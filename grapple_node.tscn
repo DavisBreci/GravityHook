@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c1dgui8tinrh7"]
+
+[ext_resource type="Script" uid="uid://dq22elybndenu" path="res://grapple_node.gd" id="1_4xotw"]
+[ext_resource type="Texture2D" uid="uid://b5c6xejnyx05d" path="res://assets/circle.png" id="1_lb6ns"]
+[ext_resource type="Texture2D" uid="uid://dy0e8ng40d4w4" path="res://assets/Solid_black.png" id="2_frh4e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_velac"]
+size = Vector2(48, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_velac"]
+radius = 200.0
+
+[node name="GrappleNode" type="StaticBody2D" unique_id=1462560420]
+script = ExtResource("1_4xotw")
+
+[node name="BaseSprite" type="Sprite2D" parent="." unique_id=1513000305]
+scale = Vector2(0.24000001, 0.24000001)
+texture = ExtResource("2_frh4e")
+
+[node name="RingSprite" type="Sprite2D" parent="." unique_id=1900530484]
+position = Vector2(-1.9073486e-06, 0)
+scale = Vector2(0.05999999, 0.060000006)
+texture = ExtResource("1_lb6ns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1560383557]
+shape = SubResource("RectangleShape2D_velac")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1062281330]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1513285375]
+shape = SubResource("CircleShape2D_velac")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
