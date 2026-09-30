@@ -14,11 +14,9 @@ func _process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	$RingSprite.modulate.a = 1.0
-	print("entered")
 	can_hook.emit(true, self)
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	$RingSprite.modulate.a = 0.2
-	print("exited")
 	can_hook.emit(false, self)

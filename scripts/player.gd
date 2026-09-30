@@ -5,6 +5,7 @@ const GRAVITY = 50
 var gravity_direction = Vector2(0,1)
 var is_airborne = true
 const SPEED = 400 # pixels per second
+var physics_velocity = Vector2.ZERO
 var directional_input = Vector2.ZERO
 var button_input = [false, false, false]
 var hookable_node = null
@@ -55,40 +56,36 @@ func _physics_process(delta: float) -> void:
 		if normal + gravity_direction == Vector2.ZERO or velocity.normalized().dot(normal) < -0.9:
 			is_airborne = false
 			set_gravity((-1)*normal)
-			velocity = Vector2.ZERO
+			physics_velocity = Vector2.ZERO
 # Movement
-#	if button_input[buttons.DASH]:
-#		directional_input *= 1.8
+	if button_input[buttons.DASH]:
+		directional_input *= 1.8
 	if gravity_direction.x != 0:
-		directional_input.x = 0
-		velocity.y += directional_input.y * SPEED * delta
-#		velocity.y = clamp(velocity.y, -SPEED*delta, SPEED*delta)
+		directional_input = Vector2(0,directional_input.y*SPEED*delta)
 	else:
-		directional_input.y = 0
-		velocity.x += directional_input.x * SPEED * delta
-#		velocity.x = clamp(velocity.x, -SPEED*delta, SPEED*delta)
+		directional_input = Vector2(directional_input.x*SPEED*delta,0)
 	if not is_airborne:
 		$AnimatedSprite2D.play()
 		if button_input[buttons.JUMP]:
 			$AnimatedSprite2D.stop()
 			is_airborne = true
 			set_gravity((-1)*gravity_direction)
-			velocity += gravity_direction * GRAVITY * delta
-		elif velocity.x != 0:
+			directional_input += gravity_direction * GRAVITY * delta
+		elif directional_input.x != 0:
 			$AnimatedSprite2D.animation = "walk"
-			$AnimatedSprite2D.flip_h = velocity.x < 0 if gravity_direction == Vector2.DOWN else velocity.x > 0
-		elif velocity.y != 0:
+			$AnimatedSprite2D.flip_h = directional_input.x < 0 if gravity_direction == Vector2.DOWN else directional_input.x > 0
+		elif directional_input.y != 0:
 			$AnimatedSprite2D.animation = "walk"
-			$AnimatedSprite2D.flip_h = velocity.y < 0 if gravity_direction == Vector2.LEFT else velocity.y > 0
+			$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
 		else:
 			$AnimatedSprite2D.animation = "idle"
 	else:
-		velocity += gravity_direction * GRAVITY * delta
+		physics_velocity += gravity_direction * GRAVITY * delta
 	var hooking = is_airborne and hookable_node and button_input[buttons.HOOK] and not (hookable_node.position - position).normalized().dot(gravity_direction) > 0.2
 	if hooking:
-#		velocity += gravity_direction * GRAVITY
 		var to_node = (hookable_node.position - position).normalized()
-		velocity -= to_node * velocity.dot(to_node)
+		physics_velocity -= to_node * physics_velocity.dot(to_node)
+	velocity = physics_velocity + directional_input
 	
 
 func set_gravity(new_direction: Vector2) -> void:
