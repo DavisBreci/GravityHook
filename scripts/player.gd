@@ -1,10 +1,10 @@
 extends CharacterBody2D
 signal gravity_change
 var fall_speed = 0
-const GRAVITY = 50
+const GRAVITY = 25
 var gravity_direction = Vector2(0,1)
 var is_airborne = true
-const SPEED = 400 # pixels per second
+const SPEED = 150 # pixels per second
 var physics_velocity = Vector2.ZERO
 var directional_input = Vector2.ZERO
 var button_input = [false, false, false]
@@ -19,6 +19,7 @@ enum buttons {
 func _ready() -> void:
 	position.x = 100
 	velocity = Vector2.ZERO
+	await get_tree().process_frame # tiles are instantiated at the end of the frame
 	for grapple_node in get_tree().get_nodes_in_group("GrappleNodes"):
 		grapple_node.can_hook.connect(_on_grapple_node_can_hook)
 

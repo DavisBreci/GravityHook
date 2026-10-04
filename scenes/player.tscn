@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://doufisgilm8jv" path="res://assets/arrowguy-spritesheet.png" id="2_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_velac"]
-size = Vector2(115, 115)
+size = Vector2(32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -68,7 +68,7 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1014525259]
+[node name="Player" type="CharacterBody2D" unique_id=1014525259 groups=["player"]]
 script = ExtResource("1_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1510296493]
@@ -77,7 +77,6 @@ shape = SubResource("RectangleShape2D_velac")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1377831244]
 position = Vector2(5.9604645e-08, 2.2737368e-13)
-scale = Vector2(3.589, 3.589)
 sprite_frames = SubResource("SpriteFrames_velac")
 animation = &"idle"
 frame_progress = 0.87211996
