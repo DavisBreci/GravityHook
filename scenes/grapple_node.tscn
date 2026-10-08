@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1dgui8tinrh7"]
 
-[ext_resource type="Script" uid="uid://dq22elybndenu" path="res://grapple_node.gd" id="1_4xotw"]
+[ext_resource type="Script" uid="uid://dq22elybndenu" path="res://scripts/grapple_node.gd" id="1_4xotw"]
 [ext_resource type="Texture2D" uid="uid://by5kpkvwjksb4" path="res://assets/GrappleNode.png" id="2_3l3fw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3l3fw"]
