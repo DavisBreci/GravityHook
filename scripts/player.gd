@@ -1,5 +1,7 @@
 extends CharacterBody2D
 signal gravity_change
+signal death
+signal level_complete
 var fall_speed = 0
 const GRAVITY = 25
 var gravity_direction = Vector2(0,1)
@@ -45,6 +47,13 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity, false, 0.2, true)
 	var normal = Vector2.ZERO
 	if collision:
+		var tilemap = collision.get_collider()
+		if tilemap is TileMapLayer:
+			var coords = tilemap.get_coords_for_body_rid(collision.get_collider_rid())
+			var tile_data = tilemap.get_cell_tile_data(coords)
+# TODO: extend this idea by storing the tile type as a string and matching it to different behaviors			
+			if tile_data and tile_data.get_custom_data("Goal"):
+				goal_reached()
 		normal = collision.get_normal()
 		if normal.x != 0:
 			position.y += collision.get_remainder().y
@@ -59,8 +68,8 @@ func _physics_process(delta: float) -> void:
 			set_gravity((-1)*normal)
 			physics_velocity = Vector2.ZERO
 # Movement
-	if button_input[buttons.DASH]:
-		directional_input *= 1.8
+#	if button_input[buttons.DASH]:
+#		directional_input *= 1.8
 	if gravity_direction.x != 0:
 		directional_input = Vector2(0,directional_input.y*SPEED*delta)
 	else:
@@ -104,3 +113,12 @@ func _on_grapple_node_can_hook(hookable: bool, node: Object) -> void:
 		hookable_node = node
 	elif hookable_node == node:
 			hookable_node = null
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("death")
+	death.emit()
+
+func goal_reached() -> void:
+	print("level complete!")
+	#TODO: stop timer here, and include the final time as an argument for the signal
+	level_complete.emit()
