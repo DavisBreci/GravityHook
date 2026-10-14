@@ -13,14 +13,16 @@ func _process(delta: float) -> void:
 	pass
 
 func reset_position() -> void:
+	print("reset")
 	$Player.velocity = Vector2.ZERO
 	$Player.physics_velocity = Vector2.ZERO
 	$Player.position = SPAWN
-	$Player.set_gravity(STARTING_GRAVITY)
+	$Player.set_gravity(STARTING_GRAVITY, false)
+	
 
 func _on_player_gravity_change(new_gravity: Vector2) -> void:
 	get_tree().paused = true
-	$Player/AnimatedSprite2D.rotation = atan2(new_gravity.y, new_gravity.x) - PI/2
+	#$Player/AnimatedSprite2D.rotation = atan2(new_gravity.y, new_gravity.x) - PI/2
 	$Sprite2D/ArrowTexture.rotation = atan2(new_gravity.y, new_gravity.x) + PI/2
 	$Sprite2D/ArrowTexture.show()
 	await get_tree().create_timer(0.1).timeout

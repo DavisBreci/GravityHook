@@ -11,6 +11,7 @@ var physics_velocity = Vector2.ZERO
 var directional_input = Vector2.ZERO
 var button_input = [false, false, false]
 var hookable_node = null
+var debug = false
 var is_swinging = false
 enum buttons {
 	JUMP = 0,
@@ -41,16 +42,35 @@ func _process(delta: float) -> void:
 		button_input[buttons.DASH] = true
 	if Input.is_action_pressed("hook"):
 		button_input[buttons.HOOK] = true
+	#if Input.is_action_just_pressed("debug"):
+		#debug = !debug
+	#TODO: Fix bug, not animation
+
+	if not is_airborne:
+		$AnimatedSprite2D.play()
+		if button_input[buttons.JUMP]:
+			$AnimatedSprite2D.stop()
+		elif directional_input.x != 0:
+			$AnimatedSprite2D.animation = "walk2"
+			$AnimatedSprite2D.flip_h = directional_input.x < 0 if gravity_direction == Vector2.DOWN else directional_input.x > 0
+		elif directional_input.y != 0:
+			$AnimatedSprite2D.animation = "walk2"
+			$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
+		else:
+			$AnimatedSprite2D.animation = "idle2"
 
 func _physics_process(delta: float) -> void:
 # Collisions
 	var collision = move_and_collide(velocity, false, 0.2, true)
 	var normal = Vector2.ZERO
+	var spike = false
 	if collision:
 		var tilemap = collision.get_collider()
 		if tilemap is TileMapLayer:
 			var coords = tilemap.get_coords_for_body_rid(collision.get_collider_rid())
 			var tile_data = tilemap.get_cell_tile_data(coords)
+			#if tile_data:
+				#print(tile_data.g)
 # TODO: extend this idea by storing the tile type as a string and matching it to different behaviors			
 			if tile_data and tile_data.get_custom_data("Goal"):
 				goal_reached()
@@ -62,6 +82,7 @@ func _physics_process(delta: float) -> void:
 	
 	if normal == Vector2.ZERO:
 		is_airborne = true
+		print("airborne")
 	else:
 		if normal + gravity_direction == Vector2.ZERO or velocity.normalized().dot(normal) < -0.9:
 			is_airborne = false
@@ -75,20 +96,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		directional_input = Vector2(directional_input.x*SPEED*delta,0)
 	if not is_airborne:
-		$AnimatedSprite2D.play()
+		#$AnimatedSprite2D.play()
 		if button_input[buttons.JUMP]:
-			$AnimatedSprite2D.stop()
+			#$AnimatedSprite2D.stop()
 			is_airborne = true
 			set_gravity((-1)*gravity_direction)
 			directional_input += gravity_direction * GRAVITY * delta
-		elif directional_input.x != 0:
-			$AnimatedSprite2D.animation = "walk"
-			$AnimatedSprite2D.flip_h = directional_input.x < 0 if gravity_direction == Vector2.DOWN else directional_input.x > 0
-		elif directional_input.y != 0:
-			$AnimatedSprite2D.animation = "walk"
-			$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
-		else:
-			$AnimatedSprite2D.animation = "idle"
+		#elif directional_input.x != 0:
+			#$AnimatedSprite2D.animation = "walk2"
+			#$AnimatedSprite2D.flip_h = directional_input.x < 0 if gravity_direction == Vector2.DOWN else directional_input.x > 0
+		#elif directional_input.y != 0:
+			#$AnimatedSprite2D.animation = "walk2"
+			#$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
+		#else:
+			#$AnimatedSprite2D.animation = "idle2"
 	else:
 		physics_velocity += gravity_direction * GRAVITY * delta
 	var hooking = is_airborne and hookable_node and button_input[buttons.HOOK] and not (hookable_node.position - position).normalized().dot(gravity_direction) > 0.2
@@ -98,11 +119,13 @@ func _physics_process(delta: float) -> void:
 	velocity = physics_velocity + directional_input
 	
 
-func set_gravity(new_direction: Vector2) -> void:
+func set_gravity(new_direction: Vector2, announce := true) -> void:
 	if gravity_direction != new_direction:
 		reset_input()
-		gravity_change.emit(new_direction)
 		gravity_direction = new_direction
+		$AnimatedSprite2D.rotation = atan2(new_direction.y, new_direction.x) - PI/2
+		if announce:
+			gravity_change.emit(new_direction)
 
 func reset_input() -> void:
 	directional_input = Vector2.ZERO
@@ -115,7 +138,8 @@ func _on_grapple_node_can_hook(hookable: bool, node: Object) -> void:
 			hookable_node = null
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("death")
+	print(body)
+	#if !debug:
 	death.emit()
 
 func goal_reached() -> void:
