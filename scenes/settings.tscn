@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://dlnhpib2irf3l"]
+
+[ext_resource type="Script" uid="uid://61x1j7vh0blm" path="res://scenes/settings.gd" id="1_5p8wc"]
+[ext_resource type="AudioStream" uid="uid://bp28i0yuuwf0f" path="res://assets/GravityHook.wav" id="2_r6d6q"]
+
+[sub_resource type="DPITexture" id="DPITexture_36l1p"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"14\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"2.333\"/><path fill=\"#1a1a1a\" d=\"m11.5 3.75-5.6 5.6-1.7-1.7-1.5 1.5 3.2 3.2 7.1-7.1z\"/></svg>
+"
+
+[node name="settings" type="Control" unique_id=608049663 node_paths=PackedStringArray("master_slider", "music_slider", "sfx_slider", "auto_check", "quit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5p8wc")
+master_slider = NodePath("MarginContainer/VBoxContainer/GridContainer/MasterSlider")
+music_slider = NodePath("MarginContainer/VBoxContainer/GridContainer/MusicSlider")
+sfx_slider = NodePath("MarginContainer/VBoxContainer/GridContainer/SFXSlider")
+auto_check = NodePath("MarginContainer/VBoxContainer/GridContainer/CheckBox")
+quit = NodePath("MarginContainer/VBoxContainer/Quit")
+
+[node name="Background" type="ColorRect" parent="." unique_id=877035113]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3975928, 0.5358844, 0.5546973, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1470026787]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1847786058]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=738659216]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1088728193]
+layout_mode = 2
+size_flags_vertical = 2
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=901588647]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterSlider" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=2115964001]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=149624638]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=192834593]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="SFXLabel" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1946813209]
+layout_mode = 2
+text = "SFX    "
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=31227695]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="AutoLabel" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=258113727]
+layout_mode = 2
+text = "Automatic
+Level Progression"
+horizontal_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=996581397]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_icons/checked = SubResource("DPITexture_36l1p")
+alignment = 1
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1605244378]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Quit to Title"
+
+[node name="GravityHook" type="AudioStreamPlayer" parent="." unique_id=30160946]
+stream = ExtResource("2_r6d6q")
+autoplay = true
+bus = &"Music"
