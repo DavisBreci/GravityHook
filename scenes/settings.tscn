@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dlnhpib2irf3l"]
 
-[ext_resource type="Script" uid="uid://61x1j7vh0blm" path="res://scenes/settings.gd" id="1_5p8wc"]
+[ext_resource type="Script" uid="uid://61x1j7vh0blm" path="res://scripts/settings.gd" id="1_5p8wc"]
 [ext_resource type="AudioStream" uid="uid://bp28i0yuuwf0f" path="res://assets/GravityHook.wav" id="2_r6d6q"]
 
 [sub_resource type="DPITexture" id="DPITexture_36l1p"]

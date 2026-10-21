@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://cdxdq2o6l63ej" path="res://scripts/level.gd" id="1_w8frs"]
 [ext_resource type="PackedScene" uid="uid://5bqw8yvckq7a" path="res://scenes/player.tscn" id="3_w8frs"]
 [ext_resource type="PackedScene" uid="uid://c44iu1vjhrm4w" path="res://scenes/clock.tscn" id="4_mx8sn"]
-[ext_resource type="Shader" uid="uid://doolviefh1cfv" path="res://scenes/level.gdshader" id="5_2r41h"]
+[ext_resource type="Shader" uid="uid://doolviefh1cfv" path="res://shaders/level.gdshader" id="5_2r41h"]
 [ext_resource type="PackedScene" uid="uid://6rspgbr8vppe" path="res://scenes/level_01.tscn" id="5_ppgk2"]
-[ext_resource type="Script" uid="uid://ceh5hfhnk7u2n" path="res://scenes/color_rect.gd" id="6_2r41h"]
+[ext_resource type="Script" uid="uid://ceh5hfhnk7u2n" path="res://scripts/color_rect.gd" id="6_2r41h"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0b4ue"]
 load_path = "res://.godot/imported/Up-Arrow-PNG-Transparent-Image.png-261f6299e0fb6acc415fc7d676370040.ctex"
