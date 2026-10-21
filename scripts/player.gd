@@ -13,6 +13,7 @@ var button_input = [false, false, false]
 var hookable_node = null
 var debug = false
 var is_swinging = false
+var dead = false
 enum buttons {
 	JUMP = 0,
 	DASH = 1,
@@ -28,6 +29,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	reset_input()
+	if dead:
+		return
 	if Input.is_action_pressed("move_left"):
 		directional_input += Vector2(-1,0)
 	if Input.is_action_pressed("move_right"):
@@ -60,10 +63,11 @@ func _process(delta: float) -> void:
 			$AnimatedSprite2D.animation = "idle2"
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
 # Collisions
 	var collision = move_and_collide(velocity, false, 0.2, true)
 	var normal = Vector2.ZERO
-	var spike = false
 	if collision:
 		var tilemap = collision.get_collider()
 		if tilemap is TileMapLayer:
@@ -74,6 +78,7 @@ func _physics_process(delta: float) -> void:
 # TODO: extend this idea by storing the tile type as a string and matching it to different behaviors			
 			if tile_data and tile_data.get_custom_data("Goal"):
 				goal_reached()
+			
 		normal = collision.get_normal()
 		if normal.x != 0:
 			position.y += collision.get_remainder().y
@@ -82,7 +87,6 @@ func _physics_process(delta: float) -> void:
 	
 	if normal == Vector2.ZERO:
 		is_airborne = true
-		print("airborne")
 	else:
 		if normal + gravity_direction == Vector2.ZERO or velocity.normalized().dot(normal) < -0.9:
 			is_airborne = false
@@ -137,12 +141,15 @@ func _on_grapple_node_can_hook(hookable: bool, node: Object) -> void:
 	elif hookable_node == node:
 			hookable_node = null
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	print(body)
-	#if !debug:
-	death.emit()
-
 func goal_reached() -> void:
 	print("level complete!")
 	#TODO: stop timer here, and include the final time as an argument for the signal
 	level_complete.emit()
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	dead = true
+	$AnimatedSprite2D.play("death")
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "death":
+		death.emit()

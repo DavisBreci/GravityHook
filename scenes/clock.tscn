@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://c44iu1vjhrm4w"]
+
+[ext_resource type="Script" uid="uid://ccjxryaghw6eq" path="res://scripts/clock.gd" id="1_eptq3"]
+[ext_resource type="Texture2D" uid="uid://dqitngmrclsb" path="res://assets/Numbers.png" id="2_cqx04"]
+[ext_resource type="Texture2D" uid="uid://cocipa4mj0omk" path="res://assets/Number Dividers.png" id="3_c2meu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wj7bd"]
+atlas = ExtResource("2_cqx04")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_velac"]
+atlas = ExtResource("3_c2meu")
+
+[node name="Clock" type="Node2D" unique_id=964636893]
+script = ExtResource("1_eptq3")
+
+[node name="seconds" type="Sprite2D" parent="." unique_id=1004214633]
+position = Vector2(288, 160)
+scale = Vector2(16, 16)
+texture = SubResource("AtlasTexture_wj7bd")
+region_enabled = true
+region_rect = Rect2(0, 0, 4, 5)
+
+[node name="decis" type="Sprite2D" parent="." unique_id=2013119047]
+position = Vector2(384, 160)
+scale = Vector2(16, 16)
+texture = SubResource("AtlasTexture_wj7bd")
+region_enabled = true
+region_rect = Rect2(0, 0, 4, 5)
+
+[node name="tens" type="Sprite2D" parent="." unique_id=1568276246]
+position = Vector2(224, 160)
+scale = Vector2(16, 16)
+texture = SubResource("AtlasTexture_wj7bd")
+region_enabled = true
+region_rect = Rect2(0, 0, 4, 5)
+
+[node name="minutes" type="Sprite2D" parent="." unique_id=39505032]
+position = Vector2(128, 160)
+scale = Vector2(16, 16)
+texture = SubResource("AtlasTexture_wj7bd")
+region_enabled = true
+region_rect = Rect2(0, 0, 4, 5)
+
+[node name="point" type="Sprite2D" parent="." unique_id=2067992115]
+position = Vector2(336, 160)
+scale = Vector2(16, 16)
+texture = SubResource("AtlasTexture_velac")
+region_enabled = true
+region_rect = Rect2(2, 0, 2, 5)
+
+[node name="point2" type="Sprite2D" parent="." unique_id=1989896152]
+position = Vector2(176, 160)
+scale = Vector2(16, 16)
+texture = SubResource("AtlasTexture_velac")
+region_enabled = true
+region_rect = Rect2(0, 0, 2, 5)
+
+[node name="Timer" type="Timer" parent="." unique_id=1101225819]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="increment"]
