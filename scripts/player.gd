@@ -2,6 +2,7 @@ extends CharacterBody2D
 signal gravity_change
 signal death
 signal level_complete
+@onready var hook_line: Line2D = $Hook
 var fall_speed = 0
 const GRAVITY = 25
 var gravity_direction = Vector2(0,1)
@@ -14,6 +15,7 @@ var hookable_node = null
 var debug = false
 var is_swinging = false
 var freeze = false
+var hook_progress = 0.0
 enum buttons {
 	JUMP = 0,
 	DASH = 1,
@@ -39,7 +41,7 @@ func _process(delta: float) -> void:
 		directional_input += Vector2(0,-1)
 	if Input.is_action_pressed("move_down"):
 		directional_input += Vector2(0,1)
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_pressed("jump"):
 		button_input[buttons.JUMP] = true
 	if Input.is_action_pressed("dash"):
 		button_input[buttons.DASH] = true
@@ -120,6 +122,13 @@ func _physics_process(delta: float) -> void:
 	if hooking:
 		var to_node = (hookable_node.position - position).normalized()
 		physics_velocity -= to_node * physics_velocity.dot(to_node)
+		hook_progress = min(hook_progress + delta * 16.0, 1.0)
+		hook_line.show()
+		hook_line.set_point_position(0, Vector2.ZERO)
+		hook_line.set_point_position(1, Vector2.ZERO.lerp(to_local(hookable_node.global_position), hook_progress))
+	else:
+		hook_line.hide()
+		hook_progress = 0.0
 	velocity = physics_velocity + directional_input
 	
 
