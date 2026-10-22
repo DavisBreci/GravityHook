@@ -16,10 +16,14 @@ var sfx_bus_index: int
 var auto_check: CheckBox
 
 @export
-var quit: Button
+var quit_title: Button
+
+@export
+var quit_game: Button
+
 
 func _ready() -> void:
-	master_bus_index = AudioServer.get_bus_index("Master")
+	master_bus_index = AudioServer.get_bus_index("Mast$MarginContainer/VBoxContainer/HBoxContainer/QuitGameer")
 	master_slider.value_changed.connect(_on_master_value_changed)
 	
 	music_bus_index = AudioServer.get_bus_index("Music")
@@ -30,7 +34,9 @@ func _ready() -> void:
 	
 	auto_check.toggled.connect(_on_auto_toggled)
 	
-	quit.pressed.connect(_on_quit_pressed)
+	quit_title.pressed.connect(_on_quit_title_pressed)
+	
+	quit_game.pressed.connect(_on_quit_game_pressed)
 	
 func _on_master_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(
@@ -53,5 +59,8 @@ func _on_sfx_value_changed(value: float) -> void:
 func _on_auto_toggled(toggled_on: bool):
 	Global.auto_level_prog = toggled_on
 
-func _on_quit_pressed():
+func _on_quit_title_pressed():
 	pass
+	
+func _on_quit_game_pressed():
+	get_tree().quit()

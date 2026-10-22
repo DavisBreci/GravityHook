@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://6rspgbr8vppe"]
 
 [ext_resource type="PackedScene" uid="uid://c1dgui8tinrh7" path="res://scenes/grapple_node.tscn" id="1_4lj41"]
-[ext_resource type="Texture2D" uid="uid://c8hpn8ytwxyab" path="res://assets/Tileset.png" id="2_mofoo"]
+[ext_resource type="Texture2D" uid="uid://x5vo8apmbq81" path="res://assets/Tileset.png" id="2_mofoo"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_nr3cb"]
 scenes/1/scene = ExtResource("1_4lj41")
