@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dlnhpib2irf3l"]
 
 [ext_resource type="Script" uid="uid://61x1j7vh0blm" path="res://scripts/settings.gd" id="1_5p8wc"]
-[ext_resource type="AudioStream" uid="uid://d0vclqggvpsnf" path="res://assets/GravityHook.wav" id="2_r6d6q"]
 
 [sub_resource type="DPITexture" id="DPITexture_36l1p"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"14\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"2.333\"/><path fill=\"#1a1a1a\" d=\"m11.5 3.75-5.6 5.6-1.7-1.7-1.5 1.5 3.2 3.2 7.1-7.1z\"/></svg>
@@ -129,8 +128,3 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 text = "Quit Game"
-
-[node name="GravityHook" type="AudioStreamPlayer" parent="." unique_id=30160946]
-stream = ExtResource("2_r6d6q")
-autoplay = true
-bus = &"Music"

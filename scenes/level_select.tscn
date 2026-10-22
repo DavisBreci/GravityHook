@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://4w3xri2b2ltg"]
+
+[ext_resource type="Script" uid="uid://b1b2g4kaghfyu" path="res://scripts/level_select.gd" id="1_3shnc"]
+[ext_resource type="PackedScene" uid="uid://6rspgbr8vppe" path="res://scenes/level_01.tscn" id="2_p0wlc"]
+
+[node name="LevelSelect" type="Control" unique_id=663817020]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3shnc")
+levels = Array[PackedScene]([ExtResource("2_p0wlc"), null, null, null, null, null, null, null])
+
+[node name="Background" type="ColorRect" parent="." unique_id=106731093]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.39607844, 0.5372549, 0.5529412, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1512180105]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=166154225]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="CenterContainer/VBoxContainer" unique_id=631893003]
+layout_mode = 2
+text = "Level Select"
+horizontal_alignment = 1
+
+[node name="LevelGrid" type="GridContainer" parent="CenterContainer/VBoxContainer" unique_id=1238453651]
+layout_mode = 2
+columns = 4
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1432532776]
+layout_mode = 2
+text = "Back"

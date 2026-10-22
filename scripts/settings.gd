@@ -23,7 +23,7 @@ var quit_game: Button
 
 
 func _ready() -> void:
-	master_bus_index = AudioServer.get_bus_index("Mast$MarginContainer/VBoxContainer/HBoxContainer/QuitGameer")
+	master_bus_index = AudioServer.get_bus_index("Master")
 	master_slider.value_changed.connect(_on_master_value_changed)
 	
 	music_bus_index = AudioServer.get_bus_index("Music")
@@ -38,6 +38,9 @@ func _ready() -> void:
 	
 	quit_game.pressed.connect(_on_quit_game_pressed)
 	
+	if not MenuMusic.playing:
+		MenuMusic.play()
+
 func _on_master_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(
 		master_bus_index,
@@ -60,7 +63,7 @@ func _on_auto_toggled(toggled_on: bool):
 	Global.auto_level_prog = toggled_on
 
 func _on_quit_title_pressed():
-	pass
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
 	
 func _on_quit_game_pressed():
 	get_tree().quit()

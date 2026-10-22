@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://6nu10cdrjr5w"]
+
+[ext_resource type="AudioStream" uid="uid://d0vclqggvpsnf" path="res://assets/GravityHook.wav" id="1_ydaxe"]
+
+[node name="GravityHook" type="AudioStreamPlayer" unique_id=539984430]
+stream = ExtResource("1_ydaxe")
+bus = &"Music"

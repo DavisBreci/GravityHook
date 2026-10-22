@@ -3,6 +3,12 @@ const SPAWN = Vector2(100,260)
 const STARTING_GRAVITY = Vector2(0,1)
 var best_time = -1.0
 
+func _enter_tree() -> void:
+	MenuMusic.stop()
+	
+	var layout = Global.selected_level.instantiate()
+	$LevelLayout.add_child(layout)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	reset_position()
