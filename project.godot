@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CSCE552 2D Game"
-run/main_scene="uid://du7hx8e8yvbwb"
+run/main_scene="uid://buq2de4k1p5gd"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
