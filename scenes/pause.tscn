@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://b8hkubohid63"]
+
+[ext_resource type="Script" uid="uid://ds3e5guna1ou7" path="res://scripts/pause.gd" id="1_f1d2v"]
+
+[node name="Pause" type="CanvasLayer" unique_id=894806898]
+process_mode = 3
+script = ExtResource("1_f1d2v")
+
+[node name="Overlay" type="Control" parent="." unique_id=1121031788]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shade" type="ColorRect" parent="Overlay" unique_id=1892380318]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.37254903)
+
+[node name="CenterContainer" type="CenterContainer" parent="Overlay" unique_id=1042639903]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Overlay/CenterContainer" unique_id=1943603908]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlay/CenterContainer/PanelContainer" unique_id=2060135096]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=243974259]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1804397294]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Continue"
+
+[node name="ExitButton" type="Button" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1382678247]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Exit"

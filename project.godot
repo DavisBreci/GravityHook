@@ -28,8 +28,8 @@ MenuMusic="*uid://6nu10cdrjr5w"
 
 window/size/viewport_width=512
 window/size/viewport_height=288
-window/size/window_width_override=1024
-window/size/window_height_override=576
+window/size/window_width_override=1600
+window/size/window_height_override=900
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 

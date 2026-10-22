@@ -28,7 +28,9 @@ func reset_position() -> void:
 func _on_player_gravity_change(new_gravity: Vector2) -> void:
 	get_tree().paused = true
 	await get_tree().create_timer(0.1).timeout
-	get_tree().paused = false
+	
+	if not $PauseMenu.is_open():
+		get_tree().paused = false
 
 func _on_player_death() -> void:
 	reset_position()
