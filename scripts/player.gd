@@ -3,6 +3,8 @@ signal gravity_change
 signal death
 signal level_complete
 @onready var hook_line: Line2D = $Hook
+@onready var muzzle: Node2D = $Muzzle
+var muzzle_base_position: Vector2
 var fall_speed = 0
 const GRAVITY = 25
 var gravity_direction = Vector2(0,1)
@@ -29,10 +31,11 @@ enum buttons {
 func _ready() -> void:
 	position.x = 100
 	velocity = Vector2.ZERO
-	await get_tree().process_frame # tiles are instantiated at the end of the frame
+	muzzle_base_position = muzzle.position
+	await get_tree().process_frame
 	for grapple_node in get_tree().get_nodes_in_group("GrappleNodes"):
 		grapple_node.can_hook.connect(_on_grapple_node_can_hook)
-
+		
 func _process(delta: float) -> void:
 	reset_input()
 	if freeze:
@@ -56,22 +59,33 @@ func _process(delta: float) -> void:
 	#TODO: Fix bug, not animation
 
 	if not is_airborne:
+		var surface_input = directional_input - gravity_direction * directional_input.dot(gravity_direction)
 		$AnimatedSprite2D.play()
+
 		if button_input[buttons.JUMP]:
 			$AnimatedSprite2D.stop()
-		elif directional_input.x != 0:
+
+		elif surface_input.x != 0:
 			$AnimatedSprite2D.animation = "walk2"
-			$AnimatedSprite2D.flip_h = directional_input.x < 0 if gravity_direction == Vector2.DOWN else directional_input.x > 0
-		elif directional_input.y != 0:
+			set_facing(
+				surface_input.x < 0
+				if gravity_direction == Vector2.DOWN
+				else surface_input.x > 0
+			)
+
+		elif surface_input.y != 0:
 			$AnimatedSprite2D.animation = "walk2"
-			$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
+			set_facing(
+				surface_input.y < 0
+				if gravity_direction == Vector2.LEFT
+				else surface_input.y > 0
+			)
+
 		else:
-			$AnimatedSprite2D.animation = "idle2"
-	else:
-		if hooking:
-			$AnimatedSprite2D.animation = "grapple"
-		else:
-			$AnimatedSprite2D.animation = "idle2"
+			if hooking:
+				$AnimatedSprite2D.play("grapple")
+			else:
+				$AnimatedSprite2D.play("idle2")
 
 func _physics_process(delta: float) -> void:
 	if freeze:
@@ -126,17 +140,24 @@ func _physics_process(delta: float) -> void:
 	if hooking and not was_hooking:
 		$Audio/HookDisengage.stop()
 		$Audio/HookEngage.play()
+		$AnimatedSprite2D.play("grapple")
 	elif was_hooking and not hooking:
 		$Audio/HookEngage.stop()
 		$Audio/HookDisengage.play()
+		$AnimatedSprite2D.play("idle2")
 	if hooking:
 		var to_node = (hookable_node.position - position).normalized()
 		physics_velocity -= to_node * physics_velocity.dot(to_node)
 		hook_progress = min(hook_progress + delta * 16.0, 1.0)
 		hook_line.show()
-		var hook_start = $Muzzle.position
+		var hook_start = hook_line.to_local($Muzzle.global_position)
+		var hook_end = hook_line.to_local(hookable_node.global_position)
+
 		hook_line.set_point_position(0, hook_start)
-		hook_line.set_point_position(1, hook_start.lerp(to_local(hookable_node.global_position), hook_progress))
+		hook_line.set_point_position(
+			1,
+			hook_start.lerp(hook_end, hook_progress)
+		)
 	else:
 		hook_line.hide()
 		hook_progress = 0.0
@@ -146,9 +167,14 @@ func _physics_process(delta: float) -> void:
 
 func set_gravity(new_direction: Vector2, announce := true) -> void:
 	if gravity_direction != new_direction:
+		var reversed_gravity = new_direction == -gravity_direction
 		reset_input()
 		gravity_direction = new_direction
-		rotation = atan2(new_direction.y, new_direction.x) - PI/2
+		rotation = atan2(new_direction.y, new_direction.x) - PI / 2
+		
+		if reversed_gravity:
+			set_facing(!$AnimatedSprite2D.flip_h)
+
 		if announce:
 			$Audio/GravityChange.play()
 			gravity_change.emit(new_direction)
@@ -200,3 +226,10 @@ func reset_effects() -> void:
 	$Audio/Footstep.stop()
 	$Audio/HookEngage.stop()
 	$Audio/HookDisengage.stop()
+	
+func set_facing(flip: bool) -> void:
+	$AnimatedSprite2D.flip_h = flip
+
+	muzzle.position = muzzle_base_position
+	if flip:
+		muzzle.position.x *= -1.0

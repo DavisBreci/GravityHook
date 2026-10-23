@@ -12,6 +12,7 @@ func _enter_tree() -> void:
 	var layout = Global.selected_level.instantiate()
 	$LevelLayout.add_child(layout)
 
+
 func _exit_tree() -> void:
 	LevelMusic.stop()
 

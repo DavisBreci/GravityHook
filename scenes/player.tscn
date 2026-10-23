@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cacjoniyco2hq" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dhfnjn17al71x" path="res://assets/Death Animation.png" id="2_dqkch"]
-[ext_resource type="Texture2D" uid="uid://c1r0d14d0f4bn" path="res://assets/arrowman_new.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cmxybgobi7ba7" path="res://assets/arrowman_new.png" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://en5c736a1nn1" path="res://assets/SFX/Footstep.wav" id="4_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://cbewp1tn5a10i" path="res://assets/SFX/Landing.wav" id="5_y4r1p"]
-[ext_resource type="AudioStream" uid="uid://o4ii47gsyh" path="res://assets/SFX/GravityChange.wav" id="6_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://dxw3qs3ab4l5v" path="res://assets/SFX/GravityChange.wav" id="6_d2wvv"]
 [ext_resource type="AudioStream" uid="uid://b4xhjvjsp6ns8" path="res://assets/SFX/HookEngage.wav" id="7_3v2ag"]
 [ext_resource type="AudioStream" uid="uid://xdljylyrkd1o" path="res://assets/SFX/HookDisengage.wav" id="8_jej6c"]
 [ext_resource type="AudioStream" uid="uid://dtqogv0oysglk" path="res://assets/SFX/Death.wav" id="9_f1ej7"]
