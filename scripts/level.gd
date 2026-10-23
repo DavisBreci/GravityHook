@@ -1,7 +1,7 @@
 extends Node2D
 const SPAWN = Vector2(100,260)
 const STARTING_GRAVITY = Vector2(0,1)
-var best_time = -1.0
+# var best_time = -1.0
 
 func _enter_tree() -> void:
 	MenuMusic.stop()
@@ -45,9 +45,9 @@ func _on_player_death() -> void:
 func _on_player_level_complete() -> void:
 	LevelMusic.stop()
 	$VictorySound.play()
-	#record best time
-	if best_time == -1.0 or $Clock.time < best_time:
-		best_time = $Clock.time
+#TODO: update best time for the CURRENT level
+#	if best_time == -1.0 or $Clock.time < best_time:
+#		best_time = $Clock.time
 	#play animations
 	$CanvasLayer/ColorRect.target = $Player
 
