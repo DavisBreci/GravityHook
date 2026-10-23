@@ -12,6 +12,7 @@ var physics_velocity = Vector2.ZERO
 var directional_input = Vector2.ZERO
 var button_input = [false, false, false]
 var hookable_node = null
+var hooking = false
 var debug = false
 var is_swinging = false
 var freeze = false
@@ -63,6 +64,11 @@ func _process(delta: float) -> void:
 			$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
 		else:
 			$AnimatedSprite2D.animation = "idle2"
+	else:
+		if hooking:
+			$AnimatedSprite2D.animation = "grapple"
+		else:
+			$AnimatedSprite2D.animation = "idle2"
 
 func _physics_process(delta: float) -> void:
 	if freeze:
@@ -94,38 +100,27 @@ func _physics_process(delta: float) -> void:
 			is_airborne = false
 			set_gravity((-1)*normal)
 			physics_velocity = Vector2.ZERO
-# Movement
-#	if button_input[buttons.DASH]:
-#		directional_input *= 1.8
+			
 	if gravity_direction.x != 0:
 		directional_input = Vector2(0,directional_input.y*SPEED*delta)
 	else:
 		directional_input = Vector2(directional_input.x*SPEED*delta,0)
 	if not is_airborne:
-		#$AnimatedSprite2D.play()
 		if button_input[buttons.JUMP]:
-			#$AnimatedSprite2D.stop()
 			is_airborne = true
 			set_gravity((-1)*gravity_direction)
 			directional_input += gravity_direction * GRAVITY * delta
-		#elif directional_input.x != 0:
-			#$AnimatedSprite2D.animation = "walk2"
-			#$AnimatedSprite2D.flip_h = directional_input.x < 0 if gravity_direction == Vector2.DOWN else directional_input.x > 0
-		#elif directional_input.y != 0:
-			#$AnimatedSprite2D.animation = "walk2"
-			#$AnimatedSprite2D.flip_h = directional_input.y < 0 if gravity_direction == Vector2.LEFT else directional_input.y > 0
-		#else:
-			#$AnimatedSprite2D.animation = "idle2"
 	else:
 		physics_velocity += gravity_direction * GRAVITY * delta
-	var hooking = is_airborne and hookable_node and button_input[buttons.HOOK] and not (hookable_node.position - position).normalized().dot(gravity_direction) > 0.2
+	hooking = is_airborne and hookable_node and button_input[buttons.HOOK] and not (hookable_node.position - position).normalized().dot(gravity_direction) > 0.2
 	if hooking:
 		var to_node = (hookable_node.position - position).normalized()
 		physics_velocity -= to_node * physics_velocity.dot(to_node)
 		hook_progress = min(hook_progress + delta * 16.0, 1.0)
 		hook_line.show()
-		hook_line.set_point_position(0, Vector2.ZERO)
-		hook_line.set_point_position(1, Vector2.ZERO.lerp(to_local(hookable_node.global_position), hook_progress))
+		var hook_start = $Muzzle.position
+		hook_line.set_point_position(0, hook_start)
+		hook_line.set_point_position(1, hook_start.lerp(to_local(hookable_node.global_position), hook_progress))
 	else:
 		hook_line.hide()
 		hook_progress = 0.0
@@ -136,7 +131,7 @@ func set_gravity(new_direction: Vector2, announce := true) -> void:
 	if gravity_direction != new_direction:
 		reset_input()
 		gravity_direction = new_direction
-		$AnimatedSprite2D.rotation = atan2(new_direction.y, new_direction.x) - PI/2
+		rotation = atan2(new_direction.y, new_direction.x) - PI/2
 		if announce:
 			gravity_change.emit(new_direction)
 

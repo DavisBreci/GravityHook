@@ -5,6 +5,8 @@ var best_time = -1.0
 
 func _enter_tree() -> void:
 	MenuMusic.stop()
+	if not LevelMusic.playing:
+		LevelMusic.play()
 	
 	var layout = Global.selected_level.instantiate()
 	$LevelLayout.add_child(layout)
@@ -31,6 +33,7 @@ func _on_player_gravity_change(new_gravity: Vector2) -> void:
 	
 	if not $PauseMenu.is_open():
 		get_tree().paused = false
+	
 
 func _on_player_death() -> void:
 	reset_position()

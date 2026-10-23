@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bts50yk6kbaau"]
+
+[ext_resource type="AudioStream" uid="uid://bcjvoqet314tn" path="res://assets/LevelTheme.wav" id="1_ndvwh"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=2123113438]
+process_mode = 3
+stream = ExtResource("1_ndvwh")
