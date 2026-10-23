@@ -20,6 +20,11 @@ func _ready() -> void:
 	
 	if not MenuMusic.playing:
 		MenuMusic.play()
+	level_grid.get_child(0).grab_focus()
+
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("back_in_menu"):
+		_on_back_pressed()
 
 func _on_level_pressed(level_scene: PackedScene) -> void:
 	Global.selected_level = level_scene

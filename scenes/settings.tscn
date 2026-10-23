@@ -118,6 +118,7 @@ size_flags_vertical = 6
 text = "Quit to Title"
 
 [node name="QuitGame2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1265968637]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
