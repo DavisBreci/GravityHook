@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://c1dgui8tinrh7"]
 
 [ext_resource type="Script" uid="uid://dq22elybndenu" path="res://scripts/grapple_node.gd" id="1_4xotw"]
-[ext_resource type="Texture2D" uid="uid://by5kpkvwjksb4" path="res://assets/GrappleNode.png" id="2_3l3fw"]
+[ext_resource type="Texture2D" uid="uid://pd8jfrj67b3" path="res://assets/GrappleNode.png" id="2_3l3fw"]
+[ext_resource type="AudioStream" uid="uid://bks0vdm4r7bts" path="res://assets/SFX/ActivateNode.wav" id="3_st01v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3l3fw"]
 atlas = ExtResource("2_3l3fw")
@@ -46,6 +47,10 @@ collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1513285375]
 shape = SubResource("CircleShape2D_velac")
+
+[node name="ActivationSound" type="AudioStreamPlayer2D" parent="." unique_id=1576716758]
+stream = ExtResource("3_st01v")
+volume_db = 3.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

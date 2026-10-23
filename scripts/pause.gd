@@ -24,10 +24,12 @@ func open_menu() -> void:
 	overlay.show()
 	get_tree().paused = true
 	continue_button.grab_focus()
+	LevelMusic.stream_paused = true
 
 func _on_continue_pressed() -> void:
 	overlay.hide()
 	get_tree().paused = false
+	LevelMusic.stream_paused = false
 
 func _on_exit_pressed() -> void:
 	get_tree().paused = false

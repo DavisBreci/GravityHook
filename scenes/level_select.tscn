@@ -12,7 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3shnc")
-levels = Array[PackedScene]([ExtResource("2_p0wlc"), ExtResource("3_2epne"), null, null, null, null, null, null])
+levels = Array[PackedScene]([ExtResource("2_p0wlc"), ExtResource("3_2epne"), null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="Background" type="ColorRect" parent="." unique_id=106731093]
 layout_mode = 1
@@ -41,7 +41,7 @@ horizontal_alignment = 1
 
 [node name="LevelGrid" type="GridContainer" parent="CenterContainer/VBoxContainer" unique_id=1238453651]
 layout_mode = 2
-columns = 4
+columns = 5
 
 [node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1432532776]
 layout_mode = 2

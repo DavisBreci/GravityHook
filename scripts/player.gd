@@ -17,6 +17,9 @@ var debug = false
 var is_swinging = false
 var freeze = false
 var hook_progress = 0.0
+# footstep variables
+const FOOTSTEP_INTERVAL = 0.28
+var footstep_cooldown = 0.0
 enum buttons {
 	JUMP = 0,
 	DASH = 1,
@@ -73,6 +76,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if freeze:
 		return
+	# footstep tracking
+	var previous_position := global_position
+	var was_airborne: bool = is_airborne
 # Collisions
 	var collision = move_and_collide(velocity, false, 0.2, true)
 	var normal = Vector2.ZERO
@@ -86,6 +92,7 @@ func _physics_process(delta: float) -> void:
 # TODO: extend this idea by storing the tile type as a string and matching it to different behaviors			
 			if tile_data and tile_data.get_custom_data("Goal"):
 				goal_reached()
+				return
 			
 		normal = collision.get_normal()
 		if normal.x != 0:
@@ -101,6 +108,8 @@ func _physics_process(delta: float) -> void:
 			set_gravity((-1)*normal)
 			physics_velocity = Vector2.ZERO
 			
+	if was_airborne and not is_airborne:
+		$Audio/Landing.play()
 	if gravity_direction.x != 0:
 		directional_input = Vector2(0,directional_input.y*SPEED*delta)
 	else:
@@ -112,7 +121,14 @@ func _physics_process(delta: float) -> void:
 			directional_input += gravity_direction * GRAVITY * delta
 	else:
 		physics_velocity += gravity_direction * GRAVITY * delta
+	var was_hooking: bool = hooking
 	hooking = is_airborne and hookable_node and button_input[buttons.HOOK] and not (hookable_node.position - position).normalized().dot(gravity_direction) > 0.2
+	if hooking and not was_hooking:
+		$Audio/HookDisengage.stop()
+		$Audio/HookEngage.play()
+	elif was_hooking and not hooking:
+		$Audio/HookEngage.stop()
+		$Audio/HookDisengage.play()
 	if hooking:
 		var to_node = (hookable_node.position - position).normalized()
 		physics_velocity -= to_node * physics_velocity.dot(to_node)
@@ -125,7 +141,8 @@ func _physics_process(delta: float) -> void:
 		hook_line.hide()
 		hook_progress = 0.0
 	velocity = physics_velocity + directional_input
-	
+	var actually_moved := global_position.distance_to(previous_position) > 0.01
+	_update_footsteps(delta, actually_moved)
 
 func set_gravity(new_direction: Vector2, announce := true) -> void:
 	if gravity_direction != new_direction:
@@ -133,6 +150,7 @@ func set_gravity(new_direction: Vector2, announce := true) -> void:
 		gravity_direction = new_direction
 		rotation = atan2(new_direction.y, new_direction.x) - PI/2
 		if announce:
+			$Audio/GravityChange.play()
 			gravity_change.emit(new_direction)
 
 func reset_input() -> void:
@@ -146,13 +164,39 @@ func _on_grapple_node_can_hook(hookable: bool, node: Object) -> void:
 			hookable_node = null
 
 func goal_reached() -> void:
+	if freeze:
+		return
 	freeze = true
+	reset_effects()
 	level_complete.emit()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	if freeze:
+		return
 	freeze = true
+	reset_effects()
+	$Audio/Death.play()
 	$AnimatedSprite2D.play("death")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "death":
 		death.emit()
+
+func _update_footsteps(delta: float, actually_moved: bool) -> void:
+	if is_airborne or directional_input.is_zero_approx() or not actually_moved:
+		footstep_cooldown = 0.0
+		return
+	footstep_cooldown -= delta
+	if footstep_cooldown <= 0.0:
+		$Audio/Footstep.play()
+		footstep_cooldown = FOOTSTEP_INTERVAL
+
+func reset_effects() -> void:
+	hooking = false
+	hook_progress = 0.0
+	hook_line.hide()
+	footstep_cooldown = 0.0
+
+	$Audio/Footstep.stop()
+	$Audio/HookEngage.stop()
+	$Audio/HookDisengage.stop()

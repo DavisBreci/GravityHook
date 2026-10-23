@@ -5,3 +5,4 @@
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=2123113438]
 process_mode = 3
 stream = ExtResource("1_ndvwh")
+volume_db = -4.393

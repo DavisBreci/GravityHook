@@ -5,11 +5,15 @@ var best_time = -1.0
 
 func _enter_tree() -> void:
 	MenuMusic.stop()
+	LevelMusic.stream_paused = false
 	if not LevelMusic.playing:
 		LevelMusic.play()
 	
 	var layout = Global.selected_level.instantiate()
 	$LevelLayout.add_child(layout)
+
+func _exit_tree() -> void:
+	LevelMusic.stop()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,6 +43,8 @@ func _on_player_death() -> void:
 	reset_position()
 
 func _on_player_level_complete() -> void:
+	LevelMusic.stop()
+	$VictorySound.play()
 	#record best time
 	if best_time == -1.0 or $Clock.time < best_time:
 		best_time = $Clock.time
