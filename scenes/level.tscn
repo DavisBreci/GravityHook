@@ -38,6 +38,14 @@ texture = SubResource("CompressedTexture2D_0b4ue")
 
 [node name="LevelLayout" type="Node2D" parent="." unique_id=2033695560]
 
+[node name="Background" type="CanvasLayer" parent="LevelLayout" unique_id=574418051]
+layer = -14
+
+[node name="ColorRect" type="ColorRect" parent="LevelLayout/Background" unique_id=370599205]
+offset_right = 511.0
+offset_bottom = 287.0
+color = Color(0.75686276, 0.7490196, 0.80784315, 1)
+
 [node name="Clock" parent="." unique_id=964636893 instance=ExtResource("4_mx8sn")]
 position = Vector2(376, -2)
 scale = Vector2(0.25, 0.25)
