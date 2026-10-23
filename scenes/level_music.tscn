@@ -6,3 +6,4 @@
 process_mode = 3
 stream = ExtResource("1_ndvwh")
 volume_db = -4.393
+bus = &"Music"
