@@ -20,7 +20,8 @@ func _process(delta: float) -> void:
 	var radius = material.get_shader_parameter("radius")
 	radius = maxf(radius - shrink_speed * delta, 0.0)
 	material.set_shader_parameter("radius", radius)
-	if(radius == 0.0):
+	if radius == 0.0:
+		target = null
 		animation_complete.emit()
 func reset_shader() -> void:
 	material.set_shader_parameter("radius", default_radius)

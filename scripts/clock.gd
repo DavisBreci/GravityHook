@@ -2,6 +2,7 @@ extends Node2D
 const number_sheet_width = 20
 const number_sheet_height = 10
 var time: float
+var running: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,8 +34,14 @@ func increment_Node_base6(digit: Sprite2D) -> bool:
 	return false
 
 func increment() -> void:
+	if not running:
+		return
 	time += 0.1
 	if increment_Node($decis):
 		if increment_Node($seconds):
 			if increment_Node_base6($tens):
 				increment_Node($minutes)
+
+func stop_clock() -> float:
+	running = false
+	return time

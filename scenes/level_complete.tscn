@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cjdmkn8cua8qi"]
+
+[ext_resource type="Script" uid="uid://bin626j7tanen" path="res://scripts/level_complete.gd" id="1_hhoem"]
+
+[node name="LevelComplete" type="CanvasLayer" unique_id=40868725]
+process_mode = 3
+layer = 20
+script = ExtResource("1_hhoem")
+
+[node name="Overlay" type="Control" parent="." unique_id=1386956692]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shade" type="ColorRect" parent="Overlay" unique_id=1935274430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.30588236)
+
+[node name="CenterContainer" type="CenterContainer" parent="Overlay" unique_id=522216820]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Overlay/CenterContainer" unique_id=965244958]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlay/CenterContainer/PanelContainer" unique_id=247601878]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1086671051]
+layout_mode = 2
+text = "Level Complete!"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1901040989]
+layout_mode = 2
+text = "0:00"
+horizontal_alignment = 1
+
+[node name="BestLabel" type="Label" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=569841784]
+layout_mode = 2
+text = "Best: 0:00"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1240536486]
+layout_mode = 2
+text = "Exit"
+
+[node name="ReplayButton" type="Button" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1232212642]
+layout_mode = 2
+text = "Replay"
+
+[node name="ContinueButton" type="Button" parent="Overlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=2093332534]
+layout_mode = 2
+text = "Continue"
