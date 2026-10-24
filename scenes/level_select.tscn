@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://4w3xri2b2ltg"]
 
 [ext_resource type="Script" uid="uid://b1b2g4kaghfyu" path="res://scripts/level_select.gd" id="1_3shnc"]
-[ext_resource type="PackedScene" uid="uid://6rspgbr8vppe" path="res://scenes/level_01.tscn" id="2_p0wlc"]
-[ext_resource type="PackedScene" uid="uid://drcx2epot0xym" path="res://scenes/level_02.tscn" id="3_2epne"]
-[ext_resource type="PackedScene" uid="uid://bj3doqt22h846" path="res://scenes/level_03.tscn" id="4_rif6e"]
-[ext_resource type="PackedScene" uid="uid://coxlutp6wd5iu" path="res://scenes/level_04.tscn" id="5_chg43"]
-[ext_resource type="PackedScene" uid="uid://dm1v44l7vd6ye" path="res://scenes/level_0x.tscn" id="6_r77uv"]
+[ext_resource type="PackedScene" uid="uid://fcdmr8mevcgj" path="res://scenes/levels/level_02.tscn" id="3_2epne"]
+[ext_resource type="PackedScene" uid="uid://cm040bi87ii5e" path="res://scenes/levels/level_03.tscn" id="4_rif6e"]
+[ext_resource type="PackedScene" uid="uid://drcx2epot0xym" path="res://scenes/levels/level_09.tscn" id="5_4nqmc"]
+[ext_resource type="PackedScene" uid="uid://bj3doqt22h846" path="res://scenes/levels/level_05.tscn" id="5_7plkq"]
+[ext_resource type="PackedScene" uid="uid://coxlutp6wd5iu" path="res://scenes/levels/level_15.tscn" id="5_chg43"]
+[ext_resource type="PackedScene" uid="uid://c3cqqwsbo13gf" path="res://scenes/levels/level_10.tscn" id="5_r77uv"]
+[ext_resource type="PackedScene" uid="uid://dm1v44l7vd6ye" path="res://scenes/levels/level_01.tscn" id="6_r77uv"]
 
 [node name="LevelSelect" type="Control" unique_id=663817020]
 layout_mode = 3
@@ -15,7 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3shnc")
-levels = Array[PackedScene]([ExtResource("2_p0wlc"), ExtResource("3_2epne"), ExtResource("4_rif6e"), ExtResource("5_chg43"), null, ExtResource("6_r77uv"), null, null, null, null, null, null, null, null, null])
+levels = Array[PackedScene]([ExtResource("6_r77uv"), ExtResource("3_2epne"), ExtResource("4_rif6e"), null, ExtResource("5_7plkq"), null, null, null, ExtResource("5_4nqmc"), ExtResource("5_r77uv"), null, null, null, null, ExtResource("5_chg43")])
 
 [node name="Background" type="ColorRect" parent="." unique_id=106731093]
 layout_mode = 1

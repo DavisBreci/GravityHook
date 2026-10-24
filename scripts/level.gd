@@ -36,6 +36,7 @@ func reset_level() -> void:
 	$Player.freeze = false
 	$Player.set_gravity(STARTING_GRAVITY, false)
 	layout.get_node("coin").reset_coin()
+	$Clock.reset_clock()
 
 func _on_player_gravity_change(new_gravity: Vector2) -> void:
 	get_tree().paused = true

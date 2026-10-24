@@ -36,3 +36,10 @@ func increment() -> void:
 func stop_clock() -> float:
 	running = false
 	return time
+
+func reset_clock() -> void:
+	time = 0.0
+	$decis.region_rect.position = Vector2(0,0)
+	$seconds.region_rect.position = Vector2(0,0)
+	$tens.region_rect.position = Vector2(0,0)
+	$minutes.region_rect.position = Vector2(0,0)
