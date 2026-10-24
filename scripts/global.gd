@@ -3,9 +3,13 @@ extends Node
 const TILE_SIZE = 16
 const PLAYER_TILE_SIZE = 2
 const SETTINGS_PATH = "user://settings.cfg"
+const PROGRESS_PATH = "user://progress.cfg"
 
 var selected_level: PackedScene = preload("res://scenes/level_01.tscn")
-var auto_level_prog: bool = true
+var auto_level_prog: bool = false
+
+var level_list: Array[PackedScene] = []
+var best_times: Dictionary = {}
 
 var volumes: Dictionary = {
 	"Master": 0.5,
@@ -15,6 +19,7 @@ var volumes: Dictionary = {
 
 func _ready() -> void:
 	load_settings()
+	load_progress()
 
 func load_settings() -> void:
 	var config := ConfigFile.new()
@@ -22,7 +27,7 @@ func load_settings() -> void:
 	
 	if error == OK:
 		auto_level_prog = config.get_value(
-			"gameplay", "auto_level_prog", true
+			"gameplay", "auto_level_prog", false
 		)
 		for bus_name in volumes:
 			volumes[bus_name] = clampf(
@@ -55,3 +60,32 @@ func save_settings() -> void:
 	var error := config.save(SETTINGS_PATH)
 	if error != OK:
 		push_error("Save error: %s" % error)
+
+func load_progress() -> void:
+	var config := ConfigFile.new()
+	var error := config.load(PROGRESS_PATH)
+	if error == ERR_FILE_NOT_FOUND:
+		return
+	if error != OK:
+		push_warning("Progress load error: %s" % error)
+		return
+	var saved: Variant = config.get_value("progress", "best_times", {})
+	if saved is Dictionary:
+		best_times = saved
+
+func get_best_time(level_scene: PackedScene) -> float:
+	if level_scene == null:
+		return -1.0
+	return float(best_times.get(level_scene.resource_path, -1.0))
+
+func record_time(level_scene: PackedScene, finish_time: float) -> float:
+	var previous_best := get_best_time(level_scene)
+	if previous_best >= 0.0 and finish_time >= previous_best:
+		return previous_best
+	best_times[level_scene.resource_path] = finish_time
+	var config := ConfigFile.new()
+	config.set_value("progress", "best_times", best_times)
+	var error := config.save(PROGRESS_PATH)
+	if error != OK:
+		push_error("Progress save error: %s" % error)
+	return finish_time

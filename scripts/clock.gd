@@ -2,7 +2,7 @@ extends Node2D
 const number_sheet_width = 20
 const number_sheet_height = 10
 var time: float
-var freeze: bool = false
+var running: bool = true
 
 func increment_Node(digit: Sprite2D) -> bool:
 	var window = digit.region_rect
@@ -25,7 +25,7 @@ func increment_Node_base6(digit: Sprite2D) -> bool:
 	return false
 
 func increment() -> void:
-	if freeze:
+	if not running:
 		return
 	time += 0.1
 	if increment_Node($decis):
@@ -33,10 +33,6 @@ func increment() -> void:
 			if increment_Node_base6($tens):
 				increment_Node($minutes)
 
-func reset_clock() -> void:
-	time = 0.0
-	$decis.region_rect.position = Vector2(0,0)
-	$seconds.region_rect.position = Vector2(0,0)
-	$tens.region_rect.position = Vector2(0,0)
-	$minutes.region_rect.position = Vector2(0,0)
-	freeze = false
+func stop_clock() -> float:
+	running = false
+	return time

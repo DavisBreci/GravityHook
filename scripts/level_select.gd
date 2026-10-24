@@ -6,12 +6,21 @@ extends Control
 @onready var back_button: Button = $CenterContainer/VBoxContainer/BackButton
 
 func _ready() -> void:
+	Global.level_list.clear()
+	for level_scene in levels:
+		if level_scene != null:
+			Global.level_list.append(level_scene)
+			
 	for index in range(levels.size()):
 		var level_scene: PackedScene = levels[index]
 		var button := Button.new()
 		
+		var best := Global.get_best_time(level_scene)
 		button.text = str(index + 1)
-		button.custom_minimum_size = Vector2(80, 40)
+		if best >= 0.0:
+			button.text += "\n%.1f s" % best
+		button.custom_minimum_size = Vector2(80, 44)
+		button.add_theme_font_size_override("font_size", 12)
 		button.disabled = level_scene == null
 		button.pressed.connect(_on_level_pressed.bind(level_scene))
 		
