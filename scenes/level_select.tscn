@@ -5,9 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://cm040bi87ii5e" path="res://scenes/levels/level_03.tscn" id="4_rif6e"]
 [ext_resource type="PackedScene" uid="uid://drcx2epot0xym" path="res://scenes/levels/level_09.tscn" id="5_4nqmc"]
 [ext_resource type="PackedScene" uid="uid://bj3doqt22h846" path="res://scenes/levels/level_05.tscn" id="5_7plkq"]
-[ext_resource type="PackedScene" uid="uid://coxlutp6wd5iu" path="res://scenes/levels/level_15.tscn" id="5_chg43"]
+[ext_resource type="PackedScene" uid="uid://br3a6ketbmkto" path="res://scenes/levels/level_04.tscn" id="5_chg43"]
 [ext_resource type="PackedScene" uid="uid://c3cqqwsbo13gf" path="res://scenes/levels/level_10.tscn" id="5_r77uv"]
 [ext_resource type="PackedScene" uid="uid://dm1v44l7vd6ye" path="res://scenes/levels/level_01.tscn" id="6_r77uv"]
+[ext_resource type="PackedScene" uid="uid://coxlutp6wd5iu" path="res://scenes/levels/level_15.tscn" id="9_ckc44"]
 
 [node name="LevelSelect" type="Control" unique_id=663817020]
 layout_mode = 3
@@ -17,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3shnc")
-levels = Array[PackedScene]([ExtResource("6_r77uv"), ExtResource("3_2epne"), ExtResource("4_rif6e"), ExtResource("5_7plkq"), ExtResource("5_4nqmc"), ExtResource("5_r77uv"), ExtResource("5_chg43")])
+levels = Array[PackedScene]([ExtResource("6_r77uv"), ExtResource("3_2epne"), ExtResource("4_rif6e"), ExtResource("5_chg43"), ExtResource("5_7plkq"), ExtResource("5_4nqmc"), ExtResource("5_r77uv"), ExtResource("9_ckc44")])
 
 [node name="Background" type="ColorRect" parent="." unique_id=106731093]
 layout_mode = 1
