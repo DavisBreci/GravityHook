@@ -2,15 +2,7 @@ extends Node2D
 const number_sheet_width = 20
 const number_sheet_height = 10
 var time: float
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+var freeze: bool = false
 
 func increment_Node(digit: Sprite2D) -> bool:
 	var window = digit.region_rect
@@ -33,8 +25,18 @@ func increment_Node_base6(digit: Sprite2D) -> bool:
 	return false
 
 func increment() -> void:
+	if freeze:
+		return
 	time += 0.1
 	if increment_Node($decis):
 		if increment_Node($seconds):
 			if increment_Node_base6($tens):
 				increment_Node($minutes)
+
+func reset_clock() -> void:
+	time = 0.0
+	$decis.region_rect.position = Vector2(0,0)
+	$seconds.region_rect.position = Vector2(0,0)
+	$tens.region_rect.position = Vector2(0,0)
+	$minutes.region_rect.position = Vector2(0,0)
+	freeze = false

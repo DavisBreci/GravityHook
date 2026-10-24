@@ -4,10 +4,10 @@ signal animation_complete
 
 var default_radius
 var target: Node2D
-var shrink_speed = 450.0
+var shrink_speed = 600
 
 func _ready() ->void:
-	default_radius = size.x
+	default_radius = sqrt(pow(size.x,2) + pow(size.y,2))
 	material.set_shader_parameter("radius", default_radius)
 
 func _process(delta: float) -> void:
