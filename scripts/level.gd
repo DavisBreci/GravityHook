@@ -20,7 +20,7 @@ func _exit_tree() -> void:
 	LevelMusic.stop()
 
 func _ready() -> void:
-	reset_position()
+	reset_level()
 	$LevelComplete.exit_requested.connect(_on_completion_exit)
 	$LevelComplete.replay_requested.connect(_on_completion_replay)
 	$LevelComplete.continue_requested.connect(_on_completion_continue)
@@ -36,7 +36,6 @@ func reset_level() -> void:
 	$Player.freeze = false
 	$Player.set_gravity(STARTING_GRAVITY, false)
 	layout.get_node("coin").reset_coin()
-	$Clock.reset_clock()
 
 func _on_player_gravity_change(new_gravity: Vector2) -> void:
 	get_tree().paused = true
@@ -58,7 +57,6 @@ func _on_player_level_complete() -> void:
 	LevelMusic.stop()
 	$VictorySound.play()
 	$CanvasLayer/ColorRect.target = $Player
-	$Clock.freeze = true
 
 func _on_color_rect_animation_complete() -> void:
 	var has_next_level := _get_next_level() != null
